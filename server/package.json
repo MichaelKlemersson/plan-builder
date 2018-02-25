@@ -1,0 +1,30 @@
+{
+  "name": "server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "lint": "",
+    "test": "mocha --compilers js:babel-core/register app.test.js",
+    "start": "babel-node ./bin/www",
+    "dev": "nodemon --exec \"npm run start\" --ignore node_modules"
+  },
+  "dependencies": {
+    "body-parser": "~1.18.2",
+    "consolidate": "^0.15.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "ejs": "^2.5.7",
+    "express": "~4.15.5",
+    "lodash": "^4.17.5",
+    "morgan": "~1.9.0",
+    "nodemon": "^1.15.1",
+    "serve-favicon": "~2.4.5"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.2",
+    "babel-preset-env": "^1.6.1",
+    "chai": "^4.1.2",
+    "mocha": "^5.0.1"
+  }
+}

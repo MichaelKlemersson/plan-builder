@@ -1,0 +1,16 @@
+.card-list{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card{
+  box-shadow: 0 0 2px 2px #000;
+  flex-grow: 1;
+
+  > .title {
+    color: #000;
+    display: block;
+    margin-bottom: 5px;
+  }
+}

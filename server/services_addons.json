@@ -1,0 +1,96 @@
+{
+    "addons": [
+        {
+            "name": "AddonBB",
+            "type": "addon",
+            "price": 10,
+            "available_for": [
+                {
+                    "name": "Broadband1",
+                    "type": "bb",
+                    "addition": 0
+                },
+                {
+                    "name": "Broadband2",
+                    "type": "bb",
+                    "discount": 10
+                }
+            ]
+        },
+        {
+            "name": "AddonTV",
+            "type": "addon",
+            "price": 0,
+            "available_for": [
+                {
+                    "name": "TV2",
+                    "type": "tv",
+                    "addition": 35
+                }
+            ]
+        }
+    ],
+    "services": [
+        {
+            "name": "Broadband1",
+            "type": "bb",
+            "price": 40
+        },
+        {
+            "name": "Broadband2",
+            "type": "bb",
+            "price": 60
+        },
+        {
+            "name": "TV1",
+            "type": "tv",
+            "price": 50,
+            "available_for": [
+                {
+                    "name": "Broadband2",
+                    "type": "bb",
+                    "discount": 10
+                }
+            ]
+        },
+        {
+            "name": "TV2",
+            "type": "tv",
+            "price": 120,
+            "available_for": [
+                {
+                    "name": "Broadband2",
+                    "type": "bb",
+                    "discount": 20
+                }
+            ]
+        },
+        {
+            "name": "Landline",
+            "type": "ll",
+            "price": 35,
+            "available_for": [
+                {
+                    "name": "Broadband1",
+                    "type": "bb",
+                    "discount": 40
+                },
+                {
+                    "name": "Broadband2",
+                    "type": "bb",
+                    "discount": 40
+                },
+                {
+                    "name": "TV1",
+                    "type": "tv",
+                    "discount": 10
+                },
+                {
+                    "name": "TV2",
+                    "type": "tv",
+                    "discount": 30
+                }
+            ]
+        }
+    ]
+}

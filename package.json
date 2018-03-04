@@ -1,5 +1,5 @@
 {
-  "name": "mount-my-plan",
+  "name": "plan-builder",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

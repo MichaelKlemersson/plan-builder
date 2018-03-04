@@ -1,4 +1,4 @@
-# Mount My Plan
+# Plan Builder
 
 This project was built for a company test.
 

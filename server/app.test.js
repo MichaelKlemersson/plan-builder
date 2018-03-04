@@ -15,27 +15,14 @@ describe('File Loader Utils Tests', () => {
 });
 
 describe('Plan Model Tests', () => {
-    it('Should not create a Plan without services', () => {
-        expect(() => new Plan()).to.throw('Plan must contains at least one service');
-    });
-
     it('Should create a Plan', () => {
         expect(new Plan([services[0]])).to.be.an('object');
     });
 
     it('Should get the plan price', () => {
-        const availableServices = [services[0], services[4]];
+        const availableServices = [services[1], services[4], addons[0]];
         const plan = new Plan(availableServices);
-        const totalPlan = availableServices.reduce((prev, next) => {
-            let subTotal = prev.price + next.price;
-            if (next.addition) {
-                subTotal += next.addition;
-            } else if (next.discount) {
-                subTotal -= next.subTotal;
-            }
-
-            return subTotal;
-        });
+        const totalPlan = 55;
 
         expect(plan.getPrice()).to.be.eq(totalPlan);
     });
@@ -53,4 +40,4 @@ describe('Plan Model Tests', () => {
     });
 });
 
-describe('Plan Builder Tests');
+// describe('Plan Builder Tests');

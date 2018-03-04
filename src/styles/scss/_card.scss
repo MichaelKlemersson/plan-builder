@@ -6,11 +6,30 @@
 
 .card{
   box-shadow: 0 0 2px 2px #000;
-  flex-grow: 1;
 
   > .title {
+    background-color: #cccccc;
     color: #000;
     display: block;
     margin-bottom: 5px;
+  }
+
+  > .body{
+    display: flex;
+    flex-direction: column;
+  }
+
+  > .footer{
+    background-color: #cccccc;
+  }
+}
+
+.card-item{
+  flex-grow: 1;
+  padding: 5px 10px;
+  border-bottom: 1px solid #bbbbbb;
+
+  &:last-child{
+    border-bottom: none;
   }
 }

@@ -1,49 +1,97 @@
-import Plan from '../models/Plan'
+import { findIndex, map } from 'lodash';
+import { powerSet } from '../utils/math';
+import Plan from '../models/Plan';
 
 class PlanBuilder {
     constructor (services, addons) {
-        this.services = services;
+        this.allServices = services;
+        this.mainServices = services.filter(service => !service.is_optional);
+        this.optionalServices = services.filter(service => service.is_optional);
         this.addons = addons;
-        this.plans = new Set();
     }
 
-    getAvailablePlans() {
-        const baseServices = services.filter(service => service.type === 'bb');
-        const othersServices = services.filter(service => service.type !== 'bb');
-        baseServices.forEach(service => {
-            this.addPlan([service]);
-            
-            if (addons.length) {
-                addons.forEach(addon => this.addPlan([service], [addon]));
-                this.addPlan([service], addons);
-            }
+    getServiceSets() {
+        return (this.buildPlans(this.buildServicesCombinations()));
+    }
+
+    buildServicesCombinations() {
+        let bundles = [];
+
+        this.mainServices.forEach(service => {
+            let servicesAndAddons = this.getOptionalServicesNamesRecursive(
+                this.getOptionalServicesFor(service),
+                [service.name],
+                this.mainServices
+            ).concat(this.getAddonsNames());
+
+            bundles = bundles.concat(powerSet(servicesAndAddons).filter(combination => {
+                return combination.indexOf(service.name) !== -1;
+            }));
         });
-        
+
+        return bundles.map(bundle => {
+            return bundle.map(serviceName => {
+                let service = this.allServices.filter(service => service.name === serviceName).pop();
+                if (service) {
+                    return service;
+                } else {
+                    return this.addons.filter(service => service.name === serviceName).pop();
+                }
+            });
+        });
     }
 
-    getOnlyBasePlans() {
+    buildPlans(bundles) {
         let plans = [];
-        this.services.filter(service => service.type === 'bb').forEach(service => {
-            plans.push(new Plan([service]));
+
+        bundles.forEach(bundle => {
+            const plan = new Plan();
+            let isValidServiceBundle = true;
+            
+            bundle.forEach(service => {
+                if (service !== undefined && !plan.hasService(service) && plan.canBundleService(service)) {
+                    if (service.type === 'addon') {
+                        plan.pushAddons(service);
+                    } else {
+                        plan.addService(service);
+                    }
+                } else {
+                    isValidServiceBundle = false;
+                }
+            });
+
+            if (isValidServiceBundle) {
+                plans.push(plan.toJson());
+            }
         });
 
         return plans;
     }
 
-    getBasePlansWithAddons() {
-        return this.getOnlyBasePlans().map(plan => {
-            this.addons.forEach(addon => {
-                plan.pushAddons(addon);
-            });
+    getOptionalServicesNamesRecursive(services, allServices = [], exclude = []) {
+        services.forEach(service => {
+            if (allServices.indexOf(service.name) === -1 && findIndex(exclude, ['name', service.name]) === -1) {
+                allServices.push(service.name);
+            }
+            
+            if (service.available_for && service.available_for.length) {
+                return this.getOptionalServicesNamesRecursive(service.available_for, allServices, exclude);
+            }
+        });
 
-            plan.pushAddons(this.addons);
+        return allServices;
+    }
 
-            return plan;
+    getOptionalServicesFor(mainService) {
+        return this.optionalServices.filter(optionalService => {
+            return optionalService.available_for.filter(service => {
+                return mainService.name === service.name && mainService.type === service.type;
+            }).length > 0;
         });
     }
 
-    addPlan(services, addons = []) {
-        this.plans.add(new Plan(services, addons));
+    getAddonsNames() {
+        return map(this.addons, 'name');
     }
 }
 

@@ -110,7 +110,7 @@ class Plan {
     toJson() {
         return {
             name: this.getName(),
-            total: this.getPrice(),
+            price: this.getPrice(),
             services: this.services,
             addons: this.addons
         };

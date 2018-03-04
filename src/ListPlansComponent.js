@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CardPlan from './CardPlan';
-import './styles/scss/style.scss';
+import 'bootstrap/dist/css/bootstrap.css';
 
 class ListPlansComponent extends Component {
     state = {
@@ -17,8 +17,12 @@ class ListPlansComponent extends Component {
         const plans = this.state.plans;
 
         return (
-            <div className="card-list">
-                {plans.map(plan => (<CardPlan plan={plan} key={plan.name}/>))}
+            <div>
+                <h2 className="page-header text-center">Veja nossas opções de planos abaixo</h2>
+
+                <div className="card-list row">
+                    {plans.map(plan => (<CardPlan plan={plan} key={plan.name}/>))}
+                </div>
             </div>
         );
     }

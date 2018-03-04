@@ -20,7 +20,7 @@ npm run test
 ```
 
 ## Running
-First open two terminals and on the first terminal run:
+First open two terminals intances and at the first terminal run:
 ```bash
 npm run start
 ```

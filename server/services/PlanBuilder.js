@@ -65,6 +65,16 @@ class PlanBuilder {
             }
         });
 
+        plans.sort((prev, next) => {
+            if (prev.price < next.price) {
+                return -1;
+            } else if (prev.price > next.price) {
+                return 1;
+            }
+
+            return 0;
+        });
+
         return plans;
     }
 

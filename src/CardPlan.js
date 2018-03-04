@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
-import './styles/scss/style.scss';
+import 'bootstrap/dist/css/bootstrap.css';
 
 class CardPlan extends Component {
     render() {
         const plan = this.props.plan;
 
         return (
-            <div className="card">
-                <div className="title">
-                    {plan.name}
-                </div>
-                <div className="body">
-                    {plan.services.map(service => {
-                        <p className="card-item">{service.name}</p>
-                    })}
-                </div>
-                <div className="footer">
-                    {plan.price}
+            <div className="col-md-4 form-group">
+                <div className="card">
+                    <div className="card-header">
+                        {plan.name}
+                    </div>
+                    <ul className="list-group list-group-flush">
+                        {plan.services.map(service => (<li className="list-group-item">{service.name}</li>))}
+                    </ul>
+                    <div className="card-footer text-right">
+                        R$ {plan.price}
+                    </div>
                 </div>
             </div>
         );
